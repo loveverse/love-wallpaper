@@ -9,8 +9,8 @@ export default class ClassDemo extends Component {
     list: new Array(5).fill(1),
   };
 
-  constructor() {
-    super();
+  constructor(props: any) {
+    super(props);
     this.state = {
       text: "收藏",
       myShow: true,
