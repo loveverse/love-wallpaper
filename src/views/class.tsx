@@ -7,16 +7,18 @@ export default class ClassDemo extends Component {
     myShow: true,
     name: "小红",
     list: new Array(5).fill(1),
+    loveList: [],
   };
 
-  constructor() {
-    super();
-    this.state = {
-      text: "收藏",
-      myShow: true,
-      name: "小红",
-      list: [],
-    };
+  constructor(props: any) {
+    super(props);
+    // this.state = {
+    //   text: "收藏",
+    //   myShow: true,
+    //   name: "小红",
+    //   list: [],
+    //   loveList: [],
+    // };
     interface IParams {
       cityId: number;
       pageNum: number;
@@ -45,23 +47,17 @@ export default class ClassDemo extends Component {
       e: "16676230384733784104632321",
       bc: "110100",
     };
-    axios
-      .get(
-        "https://m.maizuo.com/gateway?cityId=110100&pageNum=1&pageSize=10&type=1&k=3318736",
-        {
-          data: obj,
-          headers: {
-            "X-Client-Info": conf,
-            "X-Host": "mall.film-ticket.film.list",
-          },
-        }
-      )
-      .then((res) => {
-        console.log("[ res ] >", res);
-      })
-      .catch((e) => {
-        console.log("[ e ] >", e);
-      });
+    // axios
+    //   .get("https://loveverse.top/api/findExcerpt")
+    //   .then((res) => {
+    //     this.setState({
+    //       loveList: res.data,
+    //     });
+    //     console.log("[ res ] >", this.state);
+    //   })
+    //   .catch((e) => {
+    //     console.log("[ e ] >", e);
+    //   });
   }
   refNameRef = React.createRef<HTMLInputElement>();
 
@@ -71,7 +67,7 @@ export default class ClassDemo extends Component {
     // ));
     return (
       <div>
-        <h2>{this.state.text}</h2>
+        {/* <h2>{this.state.text}</h2>
         <button
           onClick={() => {
             this.setState({
@@ -90,7 +86,7 @@ export default class ClassDemo extends Component {
           }}
         >
           修改名字
-        </button>
+        </button> */}
         <div
           className="scroll_wrapper"
           style={{
@@ -101,7 +97,7 @@ export default class ClassDemo extends Component {
         >
           <ul>
             {this.state.list.length ? (
-              this.state.list.map((item: any, index) => (
+              this.state.list.map((item: any, index: number) => (
                 <li key={index}>
                   {item}
                   <button onClick={this.handleDel.bind(this, index)}>
