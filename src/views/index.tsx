@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 // import ClassDemo from "./class";
 import ClassDemo from "./class";
 import Controlled from "./controlled";
+import List from "./中间人模式";
 
 function Main() {
   const obj = {
@@ -22,7 +23,8 @@ function Main() {
       </Header>
       {/* <SyncOutlined /> */}
       <Content onClick={() => setCount(count + 1)}>
-        <ClassDemo></ClassDemo>
+      <List></List>
+        {/* <ClassDemo></ClassDemo>
         <div>
           <h2>首页</h2>
           <Navbar leftShow={false} rightShow={false} />
@@ -35,7 +37,7 @@ function Main() {
           <h2>购物车</h2>
           <Navbar title="购物车" leftShow={true} rightShow={false} />
         </div>
-        <Controlled></Controlled>
+        <Controlled></Controlled> */}
       </Content>
       <Footer>Footer{count}</Footer>
     </Layout>
