@@ -1,8 +1,19 @@
 import React, { Component } from "react";
 import axios, { AxiosHeaders } from "axios";
 import BetterScroll from "better-scroll";
+
+interface Ipeople {
+  name: string;
+  age: number;
+}
+type T = keyof Ipeople; // -> "name" | "age"
+type Keys = "a" | "b";
+type Obj = {
+  [p in Keys]: any;
+}; // -> {a: any,b:any}
 export default class ClassDemo extends Component {
-  state = {
+  // 声明对象结构的类型
+  state: Record<string, any> = {
     text: "收藏",
     myShow: true,
     name: "小红",
