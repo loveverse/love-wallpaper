@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import ClassDemo from "./class";
 import Controlled from "./controlled";
 import List from "./中间人模式";
+import PubSub from "./发布订阅";
 
 function Main() {
   const obj = {
@@ -18,12 +19,10 @@ function Main() {
 
   return (
     <Layout>
-      <Header>
-        {/* <SyncOutlined /> */}
-      </Header>
+      <Header>{/* <SyncOutlined /> */}</Header>
       {/* <SyncOutlined /> */}
       <Content onClick={() => setCount(count + 1)}>
-      <List></List>
+        <List></List>
         {/* <ClassDemo></ClassDemo>
         <div>
           <h2>首页</h2>
@@ -39,7 +38,9 @@ function Main() {
         </div>
         <Controlled></Controlled> */}
       </Content>
-      <Footer>Footer{count}</Footer>
+      <Footer>
+        <PubSub></PubSub>
+      </Footer>
     </Layout>
   );
 }
