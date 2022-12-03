@@ -5,8 +5,8 @@ import Navbar from "./Navbar";
 // import ClassDemo from "./class";
 import ClassDemo from "./class";
 import Controlled from "./controlled";
-import List from "./中间人模式";
-import PubSub from "./发布订阅";
+// import List from "./中间人模式";
+import List from "./context";
 
 function Main() {
   const obj = {
@@ -39,7 +39,7 @@ function Main() {
         <Controlled></Controlled> */}
       </Content>
       <Footer>
-        <PubSub></PubSub>
+        {/* <PubSub></PubSub> */}
       </Footer>
     </Layout>
   );

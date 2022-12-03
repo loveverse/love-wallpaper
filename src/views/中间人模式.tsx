@@ -1,28 +1,43 @@
+import { IconMap } from "antd/lib/result";
 import axios from "axios";
 import React, { Component, ReactNode, useDebugValue } from "react";
 
 interface IParams {
   fileList: object[];
   content: string;
+  detail?: {
+    [key: string]: any;
+  };
 }
 
 // 第一个参数是props传参，第二个是state参数
-export default class List extends Component<any, IParams> {
-  constructor(props: IParams) {
+export default class List extends Component<any, any> {
+  constructor(props: any) {
     super(props);
     this.state = {
       fileList: [],
       content: "",
+      detail: {},
     };
     // this.init();
-    console.log("[ 222 ] >", 222);
   }
   render() {
     return (
       <div>
         {this.state.fileList.map((item: object, index: number) => (
-          <FileItem info={item} key={index}></FileItem>
+          <FileItem
+            info={item}
+            key={index}
+            onEvent={(value: any) => {
+              this.setState({
+                detail: value,
+              });
+              console.log(value);
+            }}
+          ></FileItem>
         ))}
+        {/* {this.state.detail.content} */}
+        <FileDetail info={this.state.detail}></FileDetail>
       </div>
     );
   }
@@ -31,7 +46,7 @@ export default class List extends Component<any, IParams> {
   }
   init = () => {
     axios
-      .get("http://1.15.42.9:40002/find")
+      .get("http://1.15.42.9:40001/findExcerpt")
       .then((res) => {
         this.setState({
           fileList: res.data,
@@ -45,7 +60,7 @@ export default class List extends Component<any, IParams> {
 }
 
 const defaultValue = 1;
-const MyContext = React.createContext(defaultValue);
+// const MyContext = React.createContext(defaultValue);
 class FileItem extends Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -61,9 +76,24 @@ class FileItem extends Component<any, any> {
   }
 
   render() {
+    const fileItem: any = {
+      width: "600px",
+      height: "50px",
+      background: "yellow",
+      overflow: "hidden",
+      marginBottom: "10px",
+    };
     return (
-      <div>
-        {this.state.fileList.map((item: object) => (
+      <div
+        style={fileItem}
+        onClick={() => {
+          this.props.onEvent(this.props.info);
+          console.log(this.props.info.content);
+        }}
+      >
+        <p>{this.props.info.content}</p>
+        <p>{this.props.info.author}</p>
+        {/* {this.state.fileList.map((item: object) => (
           <FileItem
             {...item}
             key={item.id}
@@ -74,29 +104,30 @@ class FileItem extends Component<any, any> {
               });
             }}
           ></FileItem>
-        ))}
-        <FileDetail content={this.state.content}></FileDetail>
-        <MyContext.Provider value={defaultValue}></MyContext.Provider>
+        ))} */}
+
+        {/* <FileDetail content={this.props.info}></FileDetail> */}
+        {/* <MyContext.Provider value={defaultValue}></MyContext.Provider>
         中间人模式
         <Item
           name="2"
           age={5}
           data={this.state.info}
           mutitle={this.state.mutitle}
-        ></Item>
+        ></Item> */}
       </div>
     );
   }
 }
 
-class FileDetail extends Component<any> {
+class FileDetail extends Component<any, any> {
   constructor(props: any) {
     super(props);
   }
   render() {
     const fileDetail: any = {
-      width: "200px",
-      height: "200px",
+      width: "400px",
+      height: "400px",
       position: "fixed",
       background: "yellow",
       top: 0,
@@ -104,7 +135,7 @@ class FileDetail extends Component<any> {
     };
     return (
       <div className="file_detail" style={fileDetail}>
-        {this.props.content}
+        {this.props.info.content}
       </div>
     );
   }

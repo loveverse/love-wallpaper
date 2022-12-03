@@ -33,7 +33,7 @@ export default class Controlled extends Component {
   }
   getList = () => {
     axios
-      .get("https://loveverse.top/api/findExcerpt")
+      .get("http://1.15.42.9:40001/findExcerpt")
       .then((res) => {
         this.setState({
           list: res.data,
