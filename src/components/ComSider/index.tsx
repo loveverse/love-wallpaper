@@ -41,6 +41,9 @@ export default function ComSider() {
         defaultSelectedKeys={[history.location.pathname]}
         items={items}
         onClick={({ key, keyPath, domEvent }) => {
+          if (history.location.pathname === key) {
+            return;
+          }
           history.push(key);
           console.log(history.location);
         }}
