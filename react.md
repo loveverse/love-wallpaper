@@ -21,3 +21,5 @@ React中diff，通过将修改的数据用js对象描述，然后与原对象对
 不能直接修改state的值，可以使用slice
 
 dangerouslySetInnerHTML将富文本显示在网页
+
+tsconfig.json配置路径别名在`compilerOptions`中

@@ -133,7 +133,7 @@ export default class ClassDemo extends Component {
           onClick={() => {
             // 不能直接修改state
             const newList = this.state.list.slice();
-            newList.push(this.refNameRef.current.value);
+            newList.push(this.refNameRef.current?.value);
             this.setState({
               list: newList,
             });

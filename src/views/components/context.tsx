@@ -17,7 +17,7 @@ const defaultValue = {
   //   },
 };
 
-const GlobalContext = React.createContext();
+const GlobalContext = React.createContext(defaultValue);
 // 第一个参数是props传参，第二个是state参数
 export default class List extends Component<any, IParams> {
   constructor(props: IParams) {
@@ -52,6 +52,7 @@ export default class List extends Component<any, IParams> {
   }
   // 第一次将要挂载(拿不到dom)
   // UNSAFE_componentWillMount() {
+  //   this.init();
   //   console.log(1, document.getElementById("myname"));
   // }
   // 第一次已经挂载
@@ -61,12 +62,12 @@ export default class List extends Component<any, IParams> {
   }
   init = () => {
     axios
-      .get("http://1.15.42.9:40001/findExcerpt")
+      .get("https://api.loveverse.top/findExcerpt")
       .then((res) => {
         this.setState({
-          fileList: res.data,
+          fileList: res.data.data,
         });
-        // console.log("[ res ] >", res.data);
+        // console.log(this.state.fileList)
       })
       .catch((error) => {
         console.log("[ error ] >", error);

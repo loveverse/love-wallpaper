@@ -1,47 +1,19 @@
-import React, { useState } from "react";
-import { Layout } from "antd";
-// import { SyncOutlined } from "@ant-design/icons";
-import Navbar from "./Navbar";
-// import ClassDemo from "./class";
-import ClassDemo from "./class";
-import Controlled from "./controlled";
-// import List from "./中间人模式";
-import List from "./context";
+import React from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import Layout from "./layout";
+import NotFound from "./notFound";
 
-function Main() {
-  const obj = {
-    title: "列表",
-    leftShow: true,
-    rightShow: true,
-  };
-  const [count, setCount] = useState(0);
-  const { Header, Footer, Content } = Layout;
-
+export default function App() {
   return (
-    <Layout>
-      <Header>{/* <SyncOutlined /> */}</Header>
-      {/* <SyncOutlined /> */}
-      <Content onClick={() => setCount(count + 1)}>
-        <List></List>
-        {/* <ClassDemo></ClassDemo>
-        <div>
-          <h2>首页</h2>
-          <Navbar leftShow={false} rightShow={false} />
-        </div>
-        <div>
-          <h2>列表</h2>
-          <Navbar {...obj} />
-        </div>
-        <div>
-          <h2>购物车</h2>
-          <Navbar title="购物车" leftShow={true} rightShow={false} />
-        </div>
-        <Controlled></Controlled> */}
-      </Content>
-      <Footer>
-        {/* <PubSub></PubSub> */}
-      </Footer>
-    </Layout>
+    <Switch>
+      {/* 路由逻辑：
+            没登录时，只能跳转到登录，不存在404；
+            登录后，存在404和默认路径/，/重定向到home，重新回到login还是到当前页面
+        */}
+      <Redirect exact from="/" to="/layout" />
+      <Route path="/layout" component={Layout} />
+      <Route path="/404" component={NotFound} />
+      <Redirect to="/404" />
+    </Switch>
   );
 }
-export default Main;
