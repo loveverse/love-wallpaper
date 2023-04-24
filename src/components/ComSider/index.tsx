@@ -1,26 +1,12 @@
-import React from "react";
-import { UploadOutlined, UserOutlined } from "@ant-design/icons";
+import React, { useEffect } from "react";
+
 import { Layout, Menu } from "antd";
 const { Sider } = Layout;
 import { useHistory } from "react-router-dom";
 
-const items = [
-  {
-    key: "/layout/a",
-    icon: <UserOutlined />,
-    label: "A",
-    // children: [],
-  },
-  {
-    key: "/layout/b",
-    icon: <UploadOutlined />,
-    label: "B",
-    // children: [],
-  },
-];
-
-export default function ComSider() {
+export default function ComSider(props: any) {
   const history = useHistory();
+  // console.log(props);
 
   return (
     <Sider
@@ -29,23 +15,21 @@ export default function ComSider() {
       breakpoint="lg"
       collapsedWidth="0"
       onBreakpoint={(broken) => {
-        console.log(broken);
+        // console.log(broken);
       }}
       onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
+        // console.log(collapsed, type);
       }}
     >
       <div className="logo">love后台模板</div>
       <Menu
         mode="inline"
         defaultSelectedKeys={[history.location.pathname]}
-        items={items}
-        onClick={({ key, keyPath, domEvent }) => {
-          if (history.location.pathname === key) {
-            return;
+        items={props.items}
+        onClick={({ key }) => {
+          if (history.location.pathname !== key) {
+            history.push(key);
           }
-          history.push(key);
-          console.log(history.location);
         }}
       />
     </Sider>

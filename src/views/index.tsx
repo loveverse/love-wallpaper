@@ -3,7 +3,8 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Layout from "./layout";
 import NotFound from "./notFound";
 
-export default function App() {
+
+const App: React.FC = () => {
   return (
     <Switch>
       {/* 路由逻辑：
@@ -16,4 +17,5 @@ export default function App() {
       <Redirect to="/404" />
     </Switch>
   );
-}
+};
+export default App;

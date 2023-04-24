@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { Image } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+import { increase, decrease } from "@/store/addReducer";
+import type { RootState } from "@/store";
+
 export default function B() {
   const [visible, setVisible] = useState(false);
+  const { value } = useSelector((state: RootState) => state.add);
+  const dispatch = useDispatch();
   return (
     <div>
       <Image
@@ -18,6 +24,9 @@ export default function B() {
           <Image src="https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp" />
         </Image.PreviewGroup>
       </div>
+      <h4>{value}</h4>
+      <button onClick={() => dispatch(increase())}>点击加1</button>
+      <button onClick={() => dispatch(decrease())}>点击减1</button>
     </div>
   );
 }
