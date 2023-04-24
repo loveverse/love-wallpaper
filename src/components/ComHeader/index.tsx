@@ -28,18 +28,21 @@ const ComHeader: React.FC<any> = ({ routes }) => {
     if (!route.label) {
       return breadcrumbs;
     }
-
-    breadcrumbs.push(route);
+    if (location.pathname.includes(route.path)) {
+      breadcrumbs.push(route);
+    }
     if (route.children) {
       route.children.forEach((childRoute: any) => {
-        if (childRoute.path === location.pathname) {
-          createBreadcrumbs(childRoute, breadcrumbs);
-        }
+        // if (childRoute.path === location.pathname) {
+        createBreadcrumbs(childRoute, breadcrumbs);
+        // }
       });
     }
+
     return breadcrumbs;
   };
   const route = getRoute(location.pathname);
+
   const breadcrumbs = createBreadcrumbs(route);
 
   return (
@@ -48,10 +51,10 @@ const ComHeader: React.FC<any> = ({ routes }) => {
         <Breadcrumb.Item className="sub_item">
           <Link to="/">首页</Link>
         </Breadcrumb.Item>
-        {breadcrumbs.map((item, index) => {
+        {breadcrumbs.map((item: any, index: number) => {
           return (
             <Breadcrumb.Item key={index}>
-              <Link to={route.path}>{item.label}</Link>
+              <Link to={route.path}>{item.path}</Link>
             </Breadcrumb.Item>
           );
         })}

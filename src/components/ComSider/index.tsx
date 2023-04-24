@@ -11,7 +11,7 @@ export default function ComSider(props: any) {
   return (
     <Sider
       theme="light"
-      style={{ height: "100%" }}
+      style={{ height: "100%", overflow: "auto" }}
       breakpoint="lg"
       collapsedWidth="0"
       onBreakpoint={(broken) => {

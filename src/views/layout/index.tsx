@@ -48,6 +48,22 @@ const items = [
         icon: <UploadOutlined />,
         label: "卡片",
       },
+      {
+        path: "/layout/components/sub",
+        breadcrumbname: "子组件",
+        key: "/layout/components/sub",
+        icon: <UploadOutlined />,
+        label: "子组件",
+        children: [
+          {
+            path: "/layout/components/sub/date",
+            breadcrumbname: "子组件时间",
+            key: "/layout/components/sub/date",
+            icon: <UploadOutlined />,
+            label: "子组件时间",
+          },
+        ],
+      },
     ],
   },
 ];

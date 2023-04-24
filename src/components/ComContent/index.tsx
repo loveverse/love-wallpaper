@@ -8,6 +8,8 @@ import B from "@/views/b";
 import Father from "@/views/father";
 import Table from "@/views/components/table/index";
 import Card from "@/views/components/card/index";
+import Date from "@/views/components/sub/date/index";
+
 import "./index.less";
 const contentStyle: React.CSSProperties = {
   overflow: "auto",
@@ -30,6 +32,12 @@ export default function ComMenu() {
               exact
               from="/layout/components"
               to="/layout/components/table"
+            />
+            <Route exact path="/layout/components/sub/date" component={Date} />
+            <Redirect
+              exact
+              from="/layout/components/sub"
+              to="/layout/components/sub/date"
             />
             {/* <Route path="*" component={NotFound} /> */}
             <Redirect to="/404" />
