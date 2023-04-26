@@ -3,12 +3,14 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Layout } from "antd";
 const { Content } = Layout;
+// import { A, B, Father, Table, Card, Date } from "@/router/lazy";
 import A from "@/views/a";
 import B from "@/views/b";
 import Father from "@/views/father";
 import Table from "@/views/components/table/index";
 import Card from "@/views/components/card/index";
 import Date from "@/views/components/sub/date/index";
+import Form from "@/views/components/sub/form/index";
 
 import "./index.less";
 const contentStyle: React.CSSProperties = {
@@ -34,13 +36,14 @@ export default function ComMenu() {
               to="/layout/components/table"
             />
             <Route exact path="/layout/components/sub/date" component={Date} />
+            <Route exact path="/layout/components/sub/form" component={Form} />
             <Redirect
               exact
               from="/layout/components/sub"
               to="/layout/components/sub/date"
             />
             {/* <Route path="*" component={NotFound} /> */}
-            <Redirect to="/404" />
+            {/* <Redirect to="/404" /> */}
           </Switch>
         </CSSTransition>
       </TransitionGroup>

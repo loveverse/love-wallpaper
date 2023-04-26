@@ -1,23 +1,17 @@
 import React from "react";
-import { Breadcrumb, Layout } from "antd";
+import { Breadcrumb, Layout, Tooltip } from "antd";
+import { ExpandOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 const { Header } = Layout;
 import "./index.less";
-const headerStyle: React.CSSProperties = {
-  textAlign: "center",
-  color: "#fff",
-  height: 64,
-  paddingInline: 50,
-  lineHeight: "64px",
-  backgroundColor: "#7dbcea",
-};
+
 const ComHeader: React.FC<any> = ({ routes }) => {
   const location = useLocation();
 
   // 根据当前路由路径获取路由配置
   const getRoute = (pathname: string) => {
     const match = routes.find((item: any) => {
-      return pathname.includes(item.path);
+      return pathname.includes(item.href);
       // return item.path === pathname;
     });
     return match || {};
@@ -28,7 +22,7 @@ const ComHeader: React.FC<any> = ({ routes }) => {
     if (!route.label) {
       return breadcrumbs;
     }
-    if (location.pathname.includes(route.path)) {
+    if (location.pathname.includes(route.href)) {
       breadcrumbs.push(route);
     }
     if (route.children) {
@@ -44,21 +38,37 @@ const ComHeader: React.FC<any> = ({ routes }) => {
   const route = getRoute(location.pathname);
 
   const breadcrumbs = createBreadcrumbs(route);
-
+  const itemRender = (item, params, items, paths) => {
+    console.log("[ paths ] >", paths.join("/"));
+    const last = items.indexOf(item) === items.length - 1;
+    return last ? (
+      <span>{item.title}</span>
+    ) : (
+      <Link
+        to={{
+          pathname: paths.join("/"),
+        }}
+      >
+        {item.title}
+      </Link>
+    );
+  };
   return (
-    <Header style={headerStyle}>
-      <Breadcrumb className="item">
-        <Breadcrumb.Item className="sub_item">
-          <Link to="/">首页</Link>
-        </Breadcrumb.Item>
-        {breadcrumbs.map((item: any, index: number) => {
-          return (
-            <Breadcrumb.Item key={index}>
-              <Link to={route.path}>{item.path}</Link>
-            </Breadcrumb.Item>
-          );
-        })}
-      </Breadcrumb>
+    <Header className="header_box">
+      <Breadcrumb
+        itemRender={itemRender}
+        items={[
+          {
+            title: "首页",
+            href: "/",
+          },
+          ...breadcrumbs,
+        ]}
+        className="item"
+      />
+      <Tooltip placement="bottom" title="全屏">
+        <ExpandOutlined />
+      </Tooltip>
     </Header>
   );
 };

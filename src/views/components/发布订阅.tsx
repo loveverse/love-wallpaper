@@ -53,9 +53,9 @@ export default class List extends Component<any, IParams> {
     return (
       <div>
         {this.state.fileList.map((item: object, index: number) => (
-          <FileItem info={item} key={index}></FileItem>
+          <FileItem info={item} key={index}/>
         ))}
-        <FileDetail></FileDetail>
+        <FileDetail/>
       </div>
     );
   }

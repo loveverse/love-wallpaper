@@ -1,16 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "antd/dist/antd.css";
-import "@/assets/css/reset.less";
+import { Provider } from "react-redux";
+import { ConfigProvider } from "antd";
+import "antd/dist/reset.css";
+// import "antd"
+
+import zhCN from "antd/es/locale/zh_CN";
+
 import "./main.less";
 import Router from "./router";
-import { store } from "./store/index";
-import { Provider } from "react-redux";
+import { store } from "./store";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router />
+      <ConfigProvider locale={zhCN}>
+        <Router />
+      </ConfigProvider>
     </Provider>
   </React.StrictMode>
 );

@@ -1,5 +1,12 @@
+import { DatePicker } from "antd";
 import React from "react";
 
 export default function Date() {
-  return <div>时间</div>;
+  return (
+    <>
+      <DatePicker onChange={() => {
+        console.log(1)
+      }} />
+      </>
+  );
 }
