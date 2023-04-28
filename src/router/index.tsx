@@ -1,27 +1,48 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import Login from "@/views/login/index";
+import {
+  HashRouter,
+  Route,
+  Routes,
+  Navigate,
+  RouteObject,
+  createHashRouter,
+  BrowserRouter,
+} from "react-router-dom";
+// import Login from "@/views/login/index";
+
 import App from "@/views/index";
-// import { App, Login } from "@/router/lazy";
+import { Login, NotFound } from "./lazy";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+
+// const token = "1";
+// export const notFoundPage = [
+//   {
+//     path: "*",
+//     element: <NotFound />,
+//   },
+// ];
+// export const baseRouter: RouteObject[] = [
+//   {
+//     path: "/login",
+//     element: <Login />,
+//   },
+//   {
+//     path: "/",
+//     element: token ? <App /> : <Navigate to="/login" />,
+//   },
+// ];
+// export default createHashRouter(baseRouter);
 
 export default function Router() {
-  const token = "1";
+  const { token } = useSelector((state: RootState) => state.add);
   return (
     <BrowserRouter>
-      <Switch>
-        <Route exact path="/login" component={Login} />
+      <Routes>
+        <Route path="/login" element={<Login />} />
         {/* 模糊匹配，没登录时，任何路由都是login */}
-        <Route
-          path="/"
-          render={() => {
-            if (token) {
-              return <App />;
-            } else {
-              return <Redirect to="/login" />;
-            }
-          }}
-        />
-      </Switch>
+        <Route path="/*" element={token ? <App /> : <Navigate to="/login" />} />
+      </Routes>
     </BrowserRouter>
   );
 }

@@ -1,6 +1,7 @@
 import { lazy } from "react";
 export const App = lazy(() => import("@/views/index"));
 export const Login = lazy(() => import("@/views/login"));
+export const NotFound = lazy(() => import("@/views/notFound"));
 export const A = lazy(() => import("@/views/a"));
 export const B = lazy(() => import("@/views/b"));
 export const Father = lazy(() => import("@/views/father"));

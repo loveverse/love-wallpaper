@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Layout } from "antd";
 const { Content } = Layout;
@@ -23,28 +23,21 @@ export default function ComMenu() {
     <Content style={contentStyle}>
       <TransitionGroup>
         <CSSTransition timeout={500} classNames="fade" unmountOnExit>
-          <Switch>
-            <Redirect exact from="/layout" to="/layout/a" />
-            <Route exact path="/layout/a" component={A} />
-            <Route exact path="/layout/b" component={B} />
-            <Route exact path="/layout/father" component={Father} />
-            <Route exact path="/layout/components/table" component={Table} />
-            <Route exact path="/layout/components/card" component={Card} />
-            <Redirect
-              exact
-              from="/layout/components"
-              to="/layout/components/table"
-            />
-            <Route exact path="/layout/components/sub/date" component={Date} />
-            <Route exact path="/layout/components/sub/form" component={Form} />
-            <Redirect
-              exact
-              from="/layout/components/sub"
-              to="/layout/components/sub/date"
-            />
+          {/* <Navigate to="/layout/a" /> */}
+          <Routes>
+            <Route path="/layout/a" element={<A />} />
+            <Route path="/layout/b" element={<B />} />
+            <Route path="/layout/father" element={<Father />} />
+            <Route path="/layout/components/table" element={<Table />} />
+            <Route path="/layout/components/card" element={<Card />} />
+            {/* <Navigate to="/layout/components/table" /> */}
+            <Route path="/layout/components/sub/date" element={<Date />} />
+            <Route path="/layout/components/sub/form" element={<Form />} />
+            {/* <Navigate to="/layout/components/sub/date" /> */}
             {/* <Route path="*" component={NotFound} /> */}
-            {/* <Redirect to="/404" /> */}
-          </Switch>
+            {/* <Navigate to="/404" /> */}
+            
+          </Routes>
         </CSSTransition>
       </TransitionGroup>
     </Content>

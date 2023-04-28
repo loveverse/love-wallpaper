@@ -1,6 +1,10 @@
 import React from "react";
 import { Breadcrumb, Layout, Tooltip } from "antd";
-import { ExpandOutlined } from "@ant-design/icons";
+import {
+  ExpandOutlined,
+  SettingOutlined,
+  RetweetOutlined,
+} from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 const { Header } = Layout;
 import "./index.less";
@@ -39,7 +43,6 @@ const ComHeader: React.FC<any> = ({ routes }) => {
 
   const breadcrumbs = createBreadcrumbs(route);
   const itemRender = (item, params, items, paths) => {
-    console.log("[ paths ] >", paths.join("/"));
     const last = items.indexOf(item) === items.length - 1;
     return last ? (
       <span>{item.title}</span>
@@ -56,7 +59,7 @@ const ComHeader: React.FC<any> = ({ routes }) => {
   return (
     <Header className="header_box">
       <Breadcrumb
-        itemRender={itemRender}
+        // itemRender={itemRender}
         items={[
           {
             title: "首页",
@@ -66,9 +69,17 @@ const ComHeader: React.FC<any> = ({ routes }) => {
         ]}
         className="item"
       />
-      <Tooltip placement="bottom" title="全屏">
-        <ExpandOutlined />
-      </Tooltip>
+      <div className="header_right">
+        <Tooltip placement="bottom" title="全屏">
+          <ExpandOutlined />
+        </Tooltip>
+        <RetweetOutlined />
+        <SettingOutlined
+          onClick={() => {
+            console.log("[ 11 ] >", 11);
+          }}
+        />
+      </div>
     </Header>
   );
 };

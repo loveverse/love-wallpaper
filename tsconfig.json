@@ -19,7 +19,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["react-router-dom"]
   },
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
