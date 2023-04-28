@@ -11,7 +11,7 @@ import Table from "@/views/components/table/index";
 import Card from "@/views/components/card/index";
 import Date from "@/views/components/sub/date/index";
 import Form from "@/views/components/sub/form/index";
-
+import NotFound from "@/views/notFound";
 import "./index.less";
 const contentStyle: React.CSSProperties = {
   overflow: "auto",
@@ -23,20 +23,18 @@ export default function ComMenu() {
     <Content style={contentStyle}>
       <TransitionGroup>
         <CSSTransition timeout={500} classNames="fade" unmountOnExit>
-          {/* <Navigate to="/layout/a" /> */}
           <Routes>
-            <Route path="/layout/a" element={<A />} />
-            <Route path="/layout/b" element={<B />} />
-            <Route path="/layout/father" element={<Father />} />
-            <Route path="/layout/components/table" element={<Table />} />
-            <Route path="/layout/components/card" element={<Card />} />
-            {/* <Navigate to="/layout/components/table" /> */}
-            <Route path="/layout/components/sub/date" element={<Date />} />
-            <Route path="/layout/components/sub/form" element={<Form />} />
-            {/* <Navigate to="/layout/components/sub/date" /> */}
-            {/* <Route path="*" component={NotFound} /> */}
-            {/* <Navigate to="/404" /> */}
-            
+            <Route path="a" element={<A />} />
+            <Route path="b" element={<B />} />
+            <Route path="father" element={<Father />} />
+            <Route path="components">
+              <Route path="table" element={<Table />} />
+              <Route path="card" element={<Card />} />
+              <Route path="sub">
+                <Route path="date" element={<Date />} />
+                <Route path="form" element={<Form />} />
+              </Route>
+            </Route>
           </Routes>
         </CSSTransition>
       </TransitionGroup>
