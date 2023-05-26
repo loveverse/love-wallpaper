@@ -3,7 +3,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Routes, Route, useRoutes, Outlet } from "react-router-dom";
 import { Layout } from "antd";
 const { Content } = Layout;
-// import { Routers } from "@/router/index";
+import { routers } from "@/router/index";
 import "./index.less";
 const contentStyle: React.CSSProperties = {
   overflow: "auto",
@@ -28,7 +28,8 @@ export default function ComContent() {
     <Content style={contentStyle}>
       {/* <TransitionGroup> */}
       {/* <CSSTransition timeout={500} classNames="fade" unmountOnExit> */}
-      <Outlet></Outlet>
+      <Routes>{routers}</Routes>
+      {/* <Outlet></Outlet> */}
       {/* </CSSTransition> */}
       {/* </TransitionGroup> */}
     </Content>

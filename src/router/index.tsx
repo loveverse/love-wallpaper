@@ -46,8 +46,7 @@ export const Routers: RouteObject[] = [
   },
   {
     path: "/components",
-    // element: <Navigate to="/components/table" />,
-    meta: {},
+    element: <h1>111</h1> || <Navigate to="/components/table" />,
     children: [
       {
         path: "/components/table",
@@ -114,17 +113,19 @@ export const rootRouter: RouteObject[] = [
 ];
 const recursionRoute = (routes: RouteObject[]) => {
   return routes.map((item, index) => {
-    const route = item.children ? (
+    return (
       <Route path={item.path} key={index} element={item.element}>
-        {recursionRoute(item.children)}
+        {item.children && recursionRoute(item.children)}
       </Route>
-    ) : (
-      <Route path={item.path} key={item.path} element={item.element} />
     );
-    return route;
   });
 };
 
+export const Router = () => {
+  const routes = useRoutes(rootRouter);
+  return routes;
+};
+export const routers = recursionRoute(Routers);
 // export const recursionItems = (routes = Routers) => {
 //   return routes.map((item) => {
 //     const route = item.children

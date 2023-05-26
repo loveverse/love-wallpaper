@@ -106,7 +106,7 @@ export default function App() {
       <ComSider items={items} />
       <Layout>
         <ComHeader routes={items} />
-        <ComContent />
+        {/* <ComContent /> */}
       </Layout>
     </Layout>
   );
