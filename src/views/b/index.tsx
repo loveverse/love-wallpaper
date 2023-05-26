@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Image } from "antd";
+import { Image, Card } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { increase, decrease } from "@/store/addReducer";
 import type { RootState } from "@/store";
+
+const { Meta } = Card;
 
 export default function B() {
   const [visible, setVisible] = useState(false);
@@ -10,6 +12,11 @@ export default function B() {
   const dispatch = useDispatch();
   return (
     <div>
+      <Card hoverable style={{ width: 240 }}>
+        <Meta title="启动环境" description="https://cn.vitejs.dev/" />
+        <p>环境名:{import.meta.env.VITE_NAME}</p>
+        <p>参数: {import.meta.env.MODE}</p>
+      </Card>
       <Image
         preview={{ visible: false }}
         width={200}

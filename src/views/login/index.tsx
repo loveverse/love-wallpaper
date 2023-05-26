@@ -8,7 +8,7 @@ export default function Login() {
   const { token } = useSelector((state: RootState) => state.add);
 
   if (token) {
-    return <Navigate to="/layout" />;
+    return <Navigate to="/a" replace />;
   }
   const navigate = useNavigate();
   const dispatch = useDispatch();

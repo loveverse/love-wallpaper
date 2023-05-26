@@ -1,14 +1,22 @@
 import React from "react";
-import { Card } from "antd";
-const { Meta } = Card;
+import { Space, Table, Tag, Button } from "antd";
+import type { ColumnsType } from "antd/es/table";
+interface DataType {
+  key: React.Key;
+  name: string;
+  age: number;
+  address: string;
+}
 export default function A() {
+  const columns: ColumnsType<DataType> = [{}];
+  const data: DataType[] = [];
+
   return (
     <div style={{ height: "100%" }}>
-      <Card hoverable style={{ width: 240 }}>
-        <Meta title="启动环境" description="https://cn.vitejs.dev/" />
-        <p>环境名:{import.meta.env.VITE_NAME}</p>
-        <p>参数: {import.meta.env.MODE}</p>
-      </Card>
+      <div style={{ marginBottom: "20px" }}>
+        <Button type="primary">添加</Button>
+      </div>
+      <Table columns={columns} dataSource={data} />
     </div>
   );
 }

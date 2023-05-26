@@ -11,11 +11,12 @@ import "./index.less";
 
 const ComHeader: React.FC<any> = ({ routes }) => {
   const location = useLocation();
+  console.log(routes);
 
   // 根据当前路由路径获取路由配置
   const getRoute = (pathname: string) => {
     const match = routes.find((item: any) => {
-      return pathname.includes(item.href);
+      return pathname.includes(item.key);
       // return item.path === pathname;
     });
     return match || {};
@@ -26,8 +27,14 @@ const ComHeader: React.FC<any> = ({ routes }) => {
     if (!route.label) {
       return breadcrumbs;
     }
-    if (location.pathname.includes(route.href)) {
-      breadcrumbs.push(route);
+    if (location.pathname.includes(route.key)) {
+      const obj = route.children
+        ? {
+            title: route.title,
+            href: route.children[0].path, // 需要重定向到第一个
+          }
+        : { title: route.title };
+      breadcrumbs.push(obj);
     }
     if (route.children) {
       route.children.forEach((childRoute: any) => {
@@ -36,39 +43,21 @@ const ComHeader: React.FC<any> = ({ routes }) => {
         // }
       });
     }
-
     return breadcrumbs;
   };
   const route = getRoute(location.pathname);
-
   const breadcrumbs = createBreadcrumbs(route);
-  const itemRender = (item, params, items, paths) => {
-    const last = items.indexOf(item) === items.length - 1;
-    return last ? (
-      <span>{item.title}</span>
-    ) : (
-      <Link
-        to={{
-          pathname: paths.join("/"),
-        }}
-      >
-        {item.title}
-      </Link>
-    );
-  };
+
+  const breadcrumItems = [
+    {
+      title: "首页",
+      href: "/",
+    },
+  ].concat(breadcrumbs);
+
   return (
     <Header className="header_box">
-      <Breadcrumb
-        // itemRender={itemRender}
-        items={[
-          {
-            title: "首页",
-            href: "/",
-          },
-          ...breadcrumbs,
-        ]}
-        className="item"
-      />
+      <Breadcrumb items={breadcrumItems} className="item" />
       <div className="header_right">
         <Tooltip placement="bottom" title="全屏">
           <ExpandOutlined />
@@ -76,7 +65,7 @@ const ComHeader: React.FC<any> = ({ routes }) => {
         <RetweetOutlined />
         <SettingOutlined
           onClick={() => {
-            console.log("[ 11 ] >", 11);
+            console.log(11);
           }}
         />
       </div>

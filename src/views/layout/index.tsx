@@ -2,79 +2,96 @@ import React from "react";
 import { Layout } from "antd";
 import { UploadOutlined, UserOutlined } from "@ant-design/icons";
 import "./index.less";
-import ComSider from "@/components/ComSider";
-import ComHeader from "@/components/ComHeader";
-import ComContent from "@/components/ComContent";
+import ComSider from "./components/ComSider";
+import ComHeader from "./components/ComHeader";
+import ComContent from "./components/ComContent";
+// import { Routers } from "@/router/index";
+// const recursionItems = (routes) => {
+//   Routers.map(item => {
+//     if(item.children){
+//       recursionItems(item.children)
+//     }else{
+//       return {
+//         key: item.path,
+//         path: item.path,
+//         href: item.path,
+//         title: item?.meta?.title || '空标题',
+//         icon: <UserOutlined />,
+//         label: item?.meta?.title || '空标题'
+//       }
+//     }
+//   })
+// };
 const items = [
   {
-    key: "/layout/a",
-    path: "/layout/a",
+    key: "/a",
+    path: "/a",
     title: "A",
-    href: "/layout/a",
+    href: "/a",
     icon: <UserOutlined />,
     label: "A",
   },
   {
-    key: "/layout/b",
-    path: "/layout/b",
+    key: "/b",
+    path: "/b",
     title: "B",
-    href: "/layout/b",
+    href: "/b",
     icon: <UploadOutlined />,
     label: "B",
   },
   {
-    key: "/layout/father",
-    path: "/layout/father",
+    key: "/father",
+    path: "/father",
     title: "Father",
-    href: "/layout/father",
+    href: "/father",
     icon: <UploadOutlined />,
     label: "Father",
   },
   {
-    key: "/layout/components",
-    path: "/layout/components",
+    key: "/components",
+    path: "/components",
     title: "组件",
-    href: "/layout/components",
+    href: "/components",
     icon: <UploadOutlined />,
     label: "组件",
     children: [
       {
-        key: "/layout/components/table",
-        path: "/layout/components/table",
+        key: "/components/table",
+        path: "/components/table",
         title: "表格",
-        href: "/layout/components/table",
+        href: "/components/table",
         icon: <UploadOutlined />,
         label: "表格",
       },
       {
-        key: "/layout/components/card",
-        path: "/layout/components/card",
+        key: "/components/card",
+        path: "/components/card",
         title: "卡片",
-        href: "/layout/components/card",
+        href: "/components/card",
         icon: <UploadOutlined />,
         label: "卡片",
       },
       {
-        key: "/layout/components/sub",
-        path: "/layout/components/sub",
+        key: "/components/sub",
+        path: "/components/sub",
         title: "子组件",
-        href: "/layout/components/sub",
+        href: "/components/sub",
         icon: <UploadOutlined />,
         label: "子组件",
         children: [
           {
-            key: "/layout/components/sub/date",
-            path: "/layout/components/sub/date",
+            key: "/components/sub/date",
+            path: "/components/sub/date",
             title: "子组件时间",
-            href: "/layout/components/sub/date",
+            href: "/components/sub/date",
             icon: <UploadOutlined />,
             label: "子组件时间",
           },
           {
-            key: "/layout/components/sub/form",
-            path: "/layout/components/sub/form",
+            key: "/components/sub/form",
+            path: "/components/sub/form",
             title: "子组件表单",
-            href: "/layout/components/sub/form",
+            href: "/components/sub/form",
             icon: <UploadOutlined />,
             label: "子组件表单",
           },

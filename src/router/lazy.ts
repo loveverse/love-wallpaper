@@ -1,5 +1,5 @@
 import { lazy } from "react";
-export const App = lazy(() => import("@/views/index"));
+export const App = lazy(() => import("@/App"));
 export const Login = lazy(() => import("@/views/login"));
 export const NotFound = lazy(() => import("@/views/notFound"));
 export const A = lazy(() => import("@/views/a"));

@@ -20,7 +20,6 @@ export default function ComSider(props: any) {
         defaultOpenKeys={[location.pathname]}
         items={props.items}
         onClick={({ key }) => {
-
           if (location.pathname !== key) {
             navigate(key);
           }

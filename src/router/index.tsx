@@ -1,48 +1,143 @@
 import React from "react";
-import {
-  HashRouter,
-  Route,
-  Routes,
-  Navigate,
-  RouteObject,
-  createHashRouter,
-  BrowserRouter,
-} from "react-router-dom";
-// import Login from "@/views/login/index";
-
-import App from "@/views/index";
-import { Login, NotFound } from "./lazy";
+import { Navigate, Outlet, useRoutes, Route } from "react-router-dom";
+import { RouteObject } from "./tyes";
+import Login from "@/views/login/index";
+import Layout from "@/views/layout";
+import A from "@/views/a";
+import B from "@/views/b";
+import Father from "@/views/father";
+import Table from "@/views/components/table";
+import Card from "@/views/components/card";
+import Date from "@/views/components/sub/date";
+import Form from "@/views/components/sub/form";
+import NotFound from "@/views/notFound";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 
-// const token = "1";
-// export const notFoundPage = [
-//   {
-//     path: "*",
-//     element: <NotFound />,
-//   },
-// ];
-// export const baseRouter: RouteObject[] = [
-//   {
-//     path: "/login",
-//     element: <Login />,
-//   },
-//   {
-//     path: "/",
-//     element: token ? <App /> : <Navigate to="/login" />,
-//   },
-// ];
-// export default createHashRouter(baseRouter);
+// 导入所有router
+// const metaRoutes = import.meta.glob("./modules/*.tsx");
+// const { token } = useSelector((state: RootState) => state.add);
 
-export default function Router() {
-  const { token } = useSelector((state: RootState) => state.add);
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        {/* 模糊匹配，没登录时，任何路由都是login */}
-        <Route path="/*" element={token ? <App /> : <Navigate to="/login" />} />
-      </Routes>
-    </BrowserRouter>
-  );
-}
+// 路由表
+export const Routers: RouteObject[] = [
+  {
+    path: "/a",
+    element: <A />,
+    meta: {
+      title: "A",
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/b",
+    element: <B />,
+    meta: {
+      title: "B",
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/father",
+    element: <Father />,
+    meta: {
+      title: "father",
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/components",
+    // element: <Navigate to="/components/table" />,
+    meta: {},
+    children: [
+      {
+        path: "/components/table",
+        element: <Table />,
+        meta: {
+          title: "表格",
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "/components/card",
+        element: <Card />,
+        meta: {
+          title: "卡片",
+        },
+      },
+      {
+        path: "/components/sub",
+        // element: <Navigate to="/notFound" />,
+        children: [
+          {
+            path: "/components/sub/date",
+            element: <Date />,
+          },
+          {
+            path: "/components/sub/form",
+            element: <Form />,
+          },
+        ],
+      },
+    ],
+  },
+];
+// 过滤路由表
+const asyncRouter: RouteObject[] = [];
+
+// 根路由
+export const rootRouter: RouteObject[] = [
+  {
+    path: "/",
+    element: <Navigate to="/login" />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+    meta: {
+      requiresAuth: false,
+      title: "登录页",
+      key: "login",
+    },
+  },
+  {
+    element: <Layout />,
+    children: Routers,
+  },
+  {
+    path: "/notFound",
+    element: <NotFound />,
+  },
+  {
+    path: "*",
+    element: <Navigate to="/notFound" />,
+  },
+];
+const recursionRoute = (routes: RouteObject[]) => {
+  return routes.map((item, index) => {
+    const route = item.children ? (
+      <Route path={item.path} key={index} element={item.element}>
+        {recursionRoute(item.children)}
+      </Route>
+    ) : (
+      <Route path={item.path} key={item.path} element={item.element} />
+    );
+    return route;
+  });
+};
+
+// export const recursionItems = (routes = Routers) => {
+//   return routes.map((item) => {
+//     const route = item.children
+//       ? recursionItems(item.children)
+//       : {
+//           key: item.path,
+//           path: item.path,
+//           href: item.path,
+//           title: item?.meta?.title || "空标题",
+//           // icon: <UserOutlined />,
+//           label: item?.meta?.title || "空标题",
+//         };
+//     return route;
+//   });
+// };
+export const routes = recursionRoute(rootRouter);
