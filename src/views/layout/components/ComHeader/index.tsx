@@ -11,7 +11,7 @@ import "./index.less";
 
 const ComHeader: React.FC<any> = ({ routes }) => {
   const location = useLocation();
-  console.log(routes);
+  // console.log(routes);
 
   // 根据当前路由路径获取路由配置
   const getRoute = (pathname: string) => {
@@ -31,7 +31,7 @@ const ComHeader: React.FC<any> = ({ routes }) => {
       const obj = route.children
         ? {
             title: route.title,
-            href: route.children[0].path, // 需要重定向到第一个
+            href: route.path, // 需要重定向到第一个
           }
         : { title: route.title };
       breadcrumbs.push(obj);

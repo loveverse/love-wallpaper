@@ -18,3 +18,13 @@ export const searchRoute = (
   }
   return result;
 };
+export const getOpenKeys = (path: string) => {
+  let newStr = "";
+  const newArr = [];
+  const arr = path.split("/").map((i) => "/" + i);
+  for (let i = 1; i < arr.length - 1; i++) {
+    newStr += arr[i];
+    newArr.push(newStr);
+  }
+  return newArr;
+};

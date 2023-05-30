@@ -1,8 +1,10 @@
 import React from "react";
-import { Navigate, Outlet, useRoutes, Route } from "react-router-dom";
+import { Navigate, useRoutes, Outlet, Route } from "react-router-dom";
+import { UploadOutlined, UserOutlined } from "@ant-design/icons";
 import { RouteObject } from "./tyes";
 import Login from "@/views/login/index";
 import Layout from "@/views/layout";
+import LayoutIndex from "@/views/layout/LayoutIndex";
 import A from "@/views/a";
 import B from "@/views/b";
 import Father from "@/views/father";
@@ -46,7 +48,10 @@ export const Routers: RouteObject[] = [
   },
   {
     path: "/components",
-    element: <h1>111</h1> || <Navigate to="/components/table" />,
+    element: <LayoutIndex />,
+    meta: {
+      title: "组件",
+    },
     children: [
       {
         path: "/components/table",
@@ -65,15 +70,24 @@ export const Routers: RouteObject[] = [
       },
       {
         path: "/components/sub",
-        // element: <Navigate to="/notFound" />,
+        element: <LayoutIndex />,
+        meta: {
+          title: "子组件",
+        },
         children: [
           {
             path: "/components/sub/date",
             element: <Date />,
+            meta: {
+              title: "时间",
+            },
           },
           {
             path: "/components/sub/form",
             element: <Form />,
+            meta: {
+              title: "表单",
+            },
           },
         ],
       },
@@ -111,6 +125,11 @@ export const rootRouter: RouteObject[] = [
     element: <Navigate to="/notFound" />,
   },
 ];
+
+export const AppRouter = () => {
+  const routes = useRoutes(rootRouter);
+  return routes;
+};
 const recursionRoute = (routes: RouteObject[]) => {
   return routes.map((item, index) => {
     return (
@@ -120,25 +139,20 @@ const recursionRoute = (routes: RouteObject[]) => {
     );
   });
 };
-
-export const Router = () => {
-  const routes = useRoutes(rootRouter);
-  return routes;
+export const useRouterItems = (routes: RouteObject[] = Routers): any => {
+  return routes.map((item: any) => {
+    const obj: any = {
+      key: item.path,
+      path: item.path,
+      href: item.path,
+      title: item?.meta?.title || "空标题",
+      icon: <UserOutlined />,
+      label: item?.meta?.title || "空标题",
+    };
+    if (item.children) {
+      obj.children = useRouterItems(item.children);
+    }
+    return obj;
+  });
 };
 export const routers = recursionRoute(Routers);
-// export const recursionItems = (routes = Routers) => {
-//   return routes.map((item) => {
-//     const route = item.children
-//       ? recursionItems(item.children)
-//       : {
-//           key: item.path,
-//           path: item.path,
-//           href: item.path,
-//           title: item?.meta?.title || "空标题",
-//           // icon: <UserOutlined />,
-//           label: item?.meta?.title || "空标题",
-//         };
-//     return route;
-//   });
-// };
-export const routes = recursionRoute(rootRouter);
